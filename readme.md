@@ -1,3 +1,3 @@
 #Hello, World!
 
-[![Build Status](https://github.com/MrKirlik)
+[![Build Status](https://travis-ci.org/MrKirlik/dopusk)]
