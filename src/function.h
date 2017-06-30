@@ -1,10 +1,9 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-int Discriment(int a, int b, int c);
+float Discriment(float a, float b, float c);
 
-int Check(int D, int a, int b, int c);
-
-float Roots(int a, int b, int c, int i, int D, float *x1);
+int Proverka(float D);
 
 #endif
+

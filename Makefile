@@ -1,44 +1,34 @@
-.PHONY: all clean test
-CFLAGS = -Wall -Werror -fPIC -MP -MMD
+.PHONY: clean all test
+CFLAGS = -Wall -Werror -MP -MMD 
 
-all: bin/equation
+all: bin/education
 
-bin/equation: build/main.o build/function.o
-	@mkdir -p bin/
-	@gcc $(CFLAGS) build/main.o build/function.o -o bin/equation -lm
+bin/education: build/main.o build/function.o
+	@echo "Make is 100%" 
+	@gcc $(CFLAGS) build/main.o build/function.o -o bin/education -lm
 
 build/main.o: src/main.c src/function.h
-	@mkdir -p build/
-	@gcc $(CFLAGS) -c src/main.c -o build/main.o -lm
+	@gcc $(CFLAGS) -c src/main.c -o build/main.o -lm 
 
-build/function.o: src/function.c src/function.h
-	@mkdir -p build/
+build/function.o: src/function.c src/function.h 
 	@gcc $(CFLAGS) -c src/function.c -o build/function.o
 
-hello: bin/hello
-bin/hello: Hello_world.cpp
-	@mkdir -p bin/
-	@g++  Hello_world.cpp -o bin/hello
+test: 
+	make bin/education_test 
+	bin/education_test 
 
-test: bin/equation_test
-	./bin/equation_test
-bin/equation_test: build/tests/test_func.o build/tests/main.o build/function.o
-	@mkdir -p bin/
-	@gcc $(CFLAGS) build/tests/main.o build/tests/test_func.o build/function.o -o bin/equation_test -lm
-build/tests/main.o: tests/main.c src/function.h
-	@mkdir -p build/
-	@mkdir -p build/tests/
-	@gcc $(CFLAGS) -I thirdparty -c tests/main.c -o build/tests/main.o -lm
-build/tests/test_func.o: src/function.h tests/test_func.c
-	@mkdir -p build/
-	@mkdir -p build/tests/
-	@gcc $(CFLAGS) -I thirdparty -c tests/test_func.c -o build/tests/test_func.o
-build/tests/function.o: src/function.c src/function.h
-	@mkdir -p build/
-	@mkdir -p build/tests/
-	@gcc $(CFLAGS) -c src/function.c -o build/tests/function.o
+bin/education_test: build/test/main.o build/test/function_test.o
+	@gcc $(CFLAGS) build/test/main.o build/test/function_test.o build/function.o -o bin/education_test
+
+build/test/main.o: test/main.c src/function.h
+	@gcc $(CFLAGS) -I thirdparty -c test/main.c -o build/test/main.o 
+	
+build/test/function_test.o: src/function.h test/function_test.c
+	@gcc $(CFlAGS) -I thirdparty -c test/function_test.c -o build/test/function_test.o 
 
 clean:
-	#rm *.exe
-	rm -r build
-	rm -r bin
+	@echo "Cleaning files in build directory" 	
+	@rm -rf build/*.d build/*.o 
+	@rm -rf build/test/*.d build/test/*.o
+
+
