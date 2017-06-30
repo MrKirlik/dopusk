@@ -1,5 +1,2 @@
- hello world, travis
- quad equation
- make, .gitignore
- tests
 Mr.Kirlik
+https://github.com/MrKirlik/dopusk
